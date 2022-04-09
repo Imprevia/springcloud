@@ -4,6 +4,7 @@ import com.gf.springcloud.common.CommonResult;
 import com.gf.springcloud.entities.Payment;
 import com.gf.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,6 +16,9 @@ import javax.annotation.Resource;
 public class PaymentController{
     @Resource
     private PaymentService paymentService;
+
+    @Value("${server.port}")
+    private String serverPort;
 
     @PostMapping(value = "/payment/create")
     public CommonResult create(@RequestBody Payment payment)
@@ -41,5 +45,10 @@ public class PaymentController{
         }else{
             return new CommonResult<Payment>(444,"没有对应记录,查询ID: "+id);
         }
+    }
+
+    @GetMapping(value = "/payment/nacos/{id}")
+    public String getPayment(@PathVariable("id") Integer id) {
+        return "nacos registry, serverPort: "+ serverPort+"\t id"+id;
     }
 }

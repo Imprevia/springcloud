@@ -1,15 +1,18 @@
-server:
-  port: 8002 #服务端口
-
 spring:
-  application:
-    name: cloud-payment-service #服务名
+  profiles:
+    active: dev # 表示开发环境
+    #active: test # 表示测试环境
+    #active: info
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource  #当前数据源操作类型
     driver-class-name: com.mysql.cj.jdbc.Driver #数据库驱动包
     url: jdbc:mysql://localhost:3306/my?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
     username: root
     password: 123654
+
+#消费者将要去访问的微服务名称(注册成功进nacos的微服务提供者)
+service-url:
+  nacos-user-service: http://cloud-payment-service
 
 devtools:
   restart:

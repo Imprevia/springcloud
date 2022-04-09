@@ -10,6 +10,15 @@ spring:
     url: jdbc:mysql://localhost:3306/my?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
     username: root
     password: 123654
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 172.18.0.2:30000 #配置Nacos地址
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 
 devtools:
   restart:
