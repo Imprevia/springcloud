@@ -7,7 +7,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 172.18.0.2:30000 #配置Nacos地址
+        server-addr: 172.18.0.3:30000 #配置Nacos地址
 devtools:
   restart:
     enabled: true #是否支持热部署

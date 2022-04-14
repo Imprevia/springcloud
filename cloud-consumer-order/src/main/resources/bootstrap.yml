@@ -7,9 +7,14 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 172.18.0.2:30000 #配置Nacos地址
+        server-addr: 172.18.0.3:30000 #配置Nacos地址
       config:
-        server-addr: 172.18.0.2:30000 #Nacos作为配置中心地址
+        server-addr: 172.18.0.3:30000 #Nacos作为配置中心地址
         file-extension: yaml #指定yaml格式的配置
         group: DEV_GROUP
         namespace: 4767b840-979f-4807-9996-1cfb5ed638ba
+    sentinel:
+      transport:
+        # 指定sentinel 控制台的地址
+        dashboard: 127.0.0.1:8858
+        # port: 30009

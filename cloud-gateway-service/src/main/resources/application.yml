@@ -1,8 +1,10 @@
 spring:
   cloud:
     sentinel:
-      # 指定sentinel 控制台的地址
-      dashboard: 127.0.0.1:8080
+      transport:
+        # 指定sentinel 控制台的地址
+        dashboard: 172.18.0.3:30008
+        port: 30009
       scg:
         fallback:
           response-status: 426
@@ -14,37 +16,41 @@ spring:
         # 名称随意
         flow:
           nacos:
-            server-addr: 119.27.173.249:8848
+            server-addr: 172.18.0.3:30000
             dataId: ${spring.application.name}-sentinel-gw-flow
-            groupId: SENTINEL_GROUP
+            groupId: DEV_GROUP
             # 规则类型，取值见：
             # com.alibaba.cloud.sentinel.datasource.RuleType
             rule-type: gw-flow
+            username: nacos
+            password: nacos
+            data-type: json
         api:
           nacos:
-            server-addr: 119.27.173.249:8848
+            server-addr: 172.18.0.3:30000
             dataId: ${spring.application.name}-sentinel-gw-api-group
-            groupId: SENTINEL_GROUP
+            groupId: DEV_GROUP
             # 规则类型，取值见：
             # com.alibaba.cloud.sentinel.datasource.RuleType
             rule-type: gw-api-group
+            username: nacos
+            password: nacos
+            data-type: json
     gateway:
       discovery:
         locator:
           lowerCaseServiceId: true
           enabled: true
-      routes:
-        - id: api-user
-          uri: lb://user-center
-          order: 8001
-          predicates:
-            - Path=/api-user/**
-          filters:
-            - StripPrefix=1
-
+#      routes:
+#        - id: api-order
+#          # uri: http://localhost:8002
+#          uri: lb://cloud-order-consumer
+#          order: 8002
+#          predicates:
+#            - Path=/consumer/payment/get/**
 redis:
   ################### redis 单机版 start ##########################
-  host: 59.110.164.254
+  host: 127.0.0.1
   port: 6379
   timeout: 6000
   database: 8
@@ -70,8 +76,6 @@ redis:
 #      shutdown-timeout: 100ms
 
 ribbon:
-  eureka:
-    enabled: true
   ReadTimeout: 90000
   ConnectTimeout: 90000
   MaxAutoRetries: 0
